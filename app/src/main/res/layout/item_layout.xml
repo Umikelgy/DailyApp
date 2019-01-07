@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
-<LinearLayout
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        android:padding="15dp"
+
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
     <TextView
+            android:id="@+id/time"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
             android:id="@+id/name"
             android:textSize="18sp"
             android:background="#CCE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    <TextView
-            android:id="@+id/age"
-            android:padding="5dp"
-            android:background="#aacc"
-            android:textSize="15sp"
+    <com.example.a10068921.myapplication.mylayout.AlignedTextView
+        android:id="@+id/atv"
+        android:layout_margin="20dp"
+        app:atv_lineSpacingExtra="5dp"
+        app:atv_marginAndPaddingOfLeftRight="40dp"
+        app:atv_textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+</com.example.a10068921.myapplication.mylayout.AlignedTextView>
+    <ImageView
+            android:id="@+id/item_image"
+            android:layout_margin="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            android:id="@+id/jc_video"
+            android:layout_width="match_parent"
+            android:layout_height="148dp">
+
+    </fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
+
+
 </LinearLayout>
-</android.support.constraint.ConstraintLayout>
