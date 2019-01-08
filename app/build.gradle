@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+configurations .all{
+    resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'}
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -31,4 +33,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'fm.jiecao:jiecaovideoplayer:5.5.2'
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.25.2'
+
 }

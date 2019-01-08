@@ -1,15 +1,16 @@
 package com.example.a10068921.myapplication.adapter;
 
+import android.app.Dialog;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.a10068921.myapplication.R;
 import com.example.a10068921.myapplication.mylayout.AlignedTextView;
+import com.example.a10068921.myapplication.sqlite.TestConnection;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
     public static class VH extends RecyclerView.ViewHolder{
         public final TextView title;
         public final TextView time;
+        public final ImageView imageView;
         public final AlignedTextView alignedTextView;
         public final JCVideoPlayerStandard mVideo;
         public VH(View itemView) {
@@ -34,6 +36,7 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
             time=itemView.findViewById(R.id.time);
             alignedTextView=itemView.findViewById(R.id.atv);
             mVideo=itemView.findViewById(R.id.jc_video);
+            imageView=itemView.findViewById(R.id.item_image);
         }
     }
     private List<String> mData;
@@ -68,8 +71,15 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
             holder.alignedTextView.setText(R.string.text);
         }
         if(position==10){
+            holder.mVideo.setVisibility(View.GONE);
 
-            holder.mVideo.removeView(holder.itemView);
+        }
+        if(position==5) {
+            holder.imageView.setImageResource(R.mipmap.test_image);
+            holder.imageView.setOnClickListener((v)->
+            {
+              openBigImage(v).show();
+            });
         }
         holder.itemView.setOnClickListener(view -> {
             // TODO: 2019/1/4 item 点击事件
@@ -77,9 +87,34 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
         });
     }
 
+    private Dialog openBigImage(View view) {
+        Dialog imageDialog=new Dialog(view.getContext(),R.style.edit_AlertDialog_style);
+        imageDialog.setContentView(R.layout.show_big_image);
+        /**
+         * 点击其他区域消失
+         * */
+        imageDialog.setCanceledOnTouchOutside(true);
+        Window w = imageDialog.getWindow();
+        WindowManager.LayoutParams lp = w.getAttributes();
+        lp.x = 0;
+        lp.y = 40;
+        imageDialog.onWindowAttributesChanged(lp);
+        ImageView iv_big_image=imageDialog.findViewById(R.id.iv_big_image);
+        iv_big_image.setBackgroundResource(R.mipmap.test_image);
+        iv_big_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        iv_big_image.setOnClickListener((v->
+        {
+            if(imageDialog!=null&& imageDialog.isShowing()){
+                imageDialog.dismiss();
+            }
+        }));
+return imageDialog;
+    }
+
 
     @Override
     public int getItemCount() {
         return mData.size();
     }
+
 }

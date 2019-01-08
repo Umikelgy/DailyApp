@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.a10068921.myapplication.adapter.NormalAdapter;
+import com.example.a10068921.myapplication.sqlite.TestConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private List<String> initData() {
         List<String> mData=new ArrayList<>();
         for(int i=0;i<100;i++){
+                mData.add("item"+i);
+            }
 
-            mData.add("item"+i);
-        }
 
         return mData;
     }
