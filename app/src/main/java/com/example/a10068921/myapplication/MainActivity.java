@@ -1,6 +1,7 @@
 package com.example.a10068921.myapplication;
 
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.a10068921.myapplication.adapter.NormalAdapter;
+import com.example.a10068921.myapplication.sqlite.DatabaseHelper;
+import com.example.a10068921.myapplication.sqlite.SqliteUtils;
 import com.example.a10068921.myapplication.sqlite.TestConnection;
 
 import java.util.ArrayList;
@@ -26,7 +29,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        /**
+     * 创建数据库
+     * */
+        String createSql="example (id integer primary key autoincrement ,name varchar(20) ,number INTEGER)";
+        String insertSql="insert into example (name,number) values(?,?) ";
+       SqliteUtils sqliteUtils= new SqliteUtils(this);
+       sqliteUtils.modifyDB(createSql);
+       sqliteUtils.insertTableMassage(insertSql,new Object[]{"name1","1234"});
         RecyclerView recyclerView=findViewById(R.id.recycler_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -4,3 +4,5 @@ IjkPlayer/MediaPlayer+TextureView:https://github.com/xiaoyanger0825/NiceVieoPlay
 JieCaoVideoPlayer：https://github.com/androidstarjack/MyGreatPalyerVideo
 <--这些优秀的音视频开源框架你值得收藏-->
 https://blog.csdn.net/androidstarjack/article/details/68954614
+
+Sqlite：使用class.driver()，connection方式出现文件系统只读问题（opening by：test.db :read-only file System)
