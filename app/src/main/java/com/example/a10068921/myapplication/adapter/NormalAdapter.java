@@ -1,9 +1,6 @@
 package com.example.a10068921.myapplication.adapter;
 
 import android.app.Dialog;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
@@ -13,13 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.a10068921.myapplication.R;
 import com.example.a10068921.myapplication.mylayout.AlignedTextView;
-import com.example.a10068921.myapplication.sqlite.DatabaseHelper;
 import com.example.a10068921.myapplication.sqlite.SqliteUtils;
-import com.example.a10068921.myapplication.sqlite.TestConnection;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -66,7 +60,7 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        holder.title.setText(mData.get(position));
+        holder.title.setText(mData.get(position))                                   ;
         holder.title.setOnClickListener((view)->
                 makeText(holder.itemView.getContext(),mData.get(position)+position,Toast.LENGTH_LONG).show()
         );
@@ -78,8 +72,10 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
             holder.alignedTextView.setText(R.string.text);
         }
         if(position==10){
-            String sql="select * from example";
-            Map<String ,Object> nameMap=new SqliteUtils(holder.itemView.getContext(),false).selectTableMassage(sql,null);
+            String sql="select * from example1";
+            SqliteUtils sqliteUtils=new SqliteUtils(holder.itemView.getContext(),sql);
+            Map<String ,Object> nameMap=sqliteUtils.selectTableMassage(null);
+            sqliteUtils.close();
             holder.title.setText(nameMap.toString());
             holder.mVideo.setVisibility(View.GONE);
 

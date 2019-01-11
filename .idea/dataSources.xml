@@ -37,5 +37,14 @@
         <property name="enable_load_extension" value="true" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="event1" uuid="8d60f0a1-b82b-422e-b3f4-7c97a22fd65f">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/Nexus_6_API_28 [emulator-5556]/data/data/com.example.a10068921.myapplication/databases/eventdb.db</jdbc-url>
+      <driver-properties>
+        <property name="enable_load_extension" value="true" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

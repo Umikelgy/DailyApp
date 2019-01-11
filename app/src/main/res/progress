@@ -6,3 +6,9 @@ JieCaoVideoPlayer：https://github.com/androidstarjack/MyGreatPalyerVideo
 https://blog.csdn.net/androidstarjack/article/details/68954614
 
 Sqlite：使用class.driver()，connection方式出现文件系统只读问题（opening by：test.db :read-only file System)
+数据库问题：同步数据： 总体是把APP里产生的eventdb（数据库）以文件形式发送到qq或微信，同样，接收该类型文件，并生成eventdb；
+存在问题：eventdb 在/data/data/com.example.a10068921.myapplication/databases/eventdb，当中，data没有权限打开，不能写入，能读取
+但是出现中文乱码，
+打开微信发送文件：https://www.jianshu.com/p/0d45e03eb1e0
+打开qq发送文件：https://gitee.com/nym/codes/j62tamue3cdg7q1n8kiyo99
+解析eventdb问题。

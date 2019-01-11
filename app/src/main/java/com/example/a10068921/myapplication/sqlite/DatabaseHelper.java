@@ -1,9 +1,10 @@
 package com.example.a10068921.myapplication.sqlite;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import static com.example.a10068921.myapplication.common.SQLiteData.DBNAME;
 
 
 /**
@@ -12,7 +13,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @date 2019/1/9 9:53
  **/
 public class DatabaseHelper extends SQLiteOpenHelper {
-
     private String sql;
 /**
  *@description
@@ -20,11 +20,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
  *@anthor  10068921
  */
 
-    public DatabaseHelper(Context context ,String dbName, SQLiteDatabase.CursorFactory factory, int version, String sql) {
-        super(context, dbName, factory, version);
+    public DatabaseHelper(Context context , SQLiteDatabase.CursorFactory factory, int version, String sql) {
+        super(context, DBNAME, factory, version);
         this.sql = sql;
     }
 
+    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+
+    }
 
     /**
      *@description

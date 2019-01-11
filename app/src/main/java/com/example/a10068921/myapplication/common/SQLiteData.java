@@ -7,5 +7,5 @@ package com.example.a10068921.myapplication.common;
  **/
 public class SQLiteData {
     public static final String DBNAME="eventdb";
-    public static final int VERSION=1;
+    public static final int VERSION=2;
 }

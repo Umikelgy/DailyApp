@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.a10068921.myapplication.common.SQLiteData.DBNAME;
 import static com.example.a10068921.myapplication.common.SQLiteData.VERSION;
 
 /**
@@ -19,23 +18,35 @@ public class SqliteUtils  {
    private DatabaseHelper databaseHelper;
    private Context context;
    private  SQLiteDatabase db;
-
-    public SqliteUtils(Context context) {
+   private String sql;
+    public SqliteUtils(Context context,String sql) {
+        databaseHelper=new DatabaseHelper(context,null,VERSION,sql);
+        db=databaseHelper.getWritableDatabase();
         this.context = context;
+        this.sql=sql;
+    }
+/**
+ * 导入数据库实例化
+ * */
+    public SqliteUtils(Context context,String dbName,int version) {
+
+        databaseHelper=new DatabaseHelper(context,dbName,null,version);
+        db=databaseHelper.getWritableDatabase();
     }
 
-    public void modifyDB(String sql, String dbName){
-        int version=db.getVersion()+1;
-        if (dbName==null||dbName==DBNAME){
-           dbName=DBNAME;
-
-        }else {
-            version=VERSION;
-        }
-        databaseHelper=new DatabaseHelper(context,dbName,null,version,sql);
-        databaseHelper.close();
+    public void addTable(String sqlTable){
+        db.execSQL(sql);
+        sql=sqlTable;
     }
-    public Map<String,Object> selectTableMassage(String sql,String[] keys){
+    public void inputDB(String sql){
+        db.execSQL(sql);
+    }
+    public void modifyDB(String sqlTable){
+       databaseHelper=new DatabaseHelper(context,null,db.getVersion()+1,sql);
+       sql=sqlTable;
+    }
+
+    public Map<String,Object> selectTableMassage(String[] keys){
          db=databaseHelper.getReadableDatabase();
         Cursor cursor=db.rawQuery(sql,keys);
         Map<String,Object> resultMap=new HashMap<>(16);
@@ -49,28 +60,29 @@ public class SqliteUtils  {
             }
             y++;
         }
-        db.close();
-        databaseHelper.close();
         return resultMap;
     }
-    public void insertTableMassage(String sql,Object[] objects){
-        db=databaseHelper.getWritableDatabase();
+    public void insertTableMassage(Object[] objects){
         if (objects==null){
             db.execSQL(sql);
         }
         else {
             db.execSQL(sql, objects);
         }
-
-        db.close();
-        databaseHelper.close();
     }
     public void deleteTableMassage(String table,String key,String value){
         String whereClause=key+"=?";
         String[] whereArgs=new String[]{String.valueOf(value)};
         db.delete(table,whereClause,whereArgs);
-        db.close();
-        databaseHelper.close();
+
+    }
+    public void close(){
+        if(db!=null){
+            db.close();
+        }
+        if(databaseHelper!=null){
+            databaseHelper.close();
+        }
     }
 
 }
