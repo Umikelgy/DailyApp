@@ -1,17 +1,24 @@
 package com.example.a10068921.myapplication.adapter;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.a10068921.myapplication.R;
+import com.example.a10068921.myapplication.activity.ImageActivity;
+import com.example.a10068921.myapplication.activity.ImageDialog;
+import com.example.a10068921.myapplication.activity.TextActitvity;
 import com.example.a10068921.myapplication.mylayout.AlignedTextView;
 import com.example.a10068921.myapplication.sqlite.SqliteUtils;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,17 +32,18 @@ import static android.widget.Toast.makeText;
  * @date 2019/1/4 19:28
  **/
 public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
+
     public static class VH extends RecyclerView.ViewHolder{
         public final TextView title;
         public final TextView time;
         public final ImageView imageView;
-        public final AlignedTextView alignedTextView;
+        public final TextView textView;
         public final JCVideoPlayerStandard mVideo;
         public VH(View itemView) {
             super(itemView);
             title=itemView.findViewById(R.id.name);
             time=itemView.findViewById(R.id.time);
-            alignedTextView=itemView.findViewById(R.id.atv);
+            textView=itemView.findViewById(R.id.atv);
             mVideo=itemView.findViewById(R.id.jc_video);
             imageView=itemView.findViewById(R.id.item_image);
         }
@@ -68,55 +76,42 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
         holder.time.setOnClickListener((view)->
                 makeText(holder.itemView.getContext(),LocalDateTime.now().toString(),Toast.LENGTH_LONG).show()
         );
-        if(position==55){
-            holder.alignedTextView.setText(R.string.text);
-        }
         if(position==10){
             String sql="select * from example1";
             SqliteUtils sqliteUtils=new SqliteUtils(holder.itemView.getContext(),sql);
             Map<String ,Object> nameMap=sqliteUtils.selectTableMassage(null);
             sqliteUtils.close();
             holder.title.setText(nameMap.toString());
-            holder.mVideo.setVisibility(View.GONE);
+
 
         }
+        if(position==4){
+
+            holder.mVideo.setVisibility(View.GONE);
+        }
         if(position==5) {
-            holder.imageView.setImageResource(R.mipmap.test_image);
-            holder.imageView.setOnClickListener((v)->
-            {
-              openBigImage(v).show();
+            TextView textView= holder.textView;
+            textView.setText(R.string.text);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    holder.itemView.getContext().startActivity(new Intent(holder.itemView.getContext(), TextActitvity.class));
+                }
             });
+
+         ImageView image=holder.imageView;
+         image.setImageResource(R.mipmap.test_image);
+         image.setOnClickListener((v)->
+         {
+             ImageDialog imageDialog=new ImageDialog(holder.itemView.getContext());
+             imageDialog.show();
+         });
         }
         holder.itemView.setOnClickListener(view -> {
             // TODO: 2019/1/4 item 点击事件
                 makeText(holder.itemView.getContext()," "+position+"item",Toast.LENGTH_LONG).show();
         });
     }
-
-    private Dialog openBigImage(View view) {
-        Dialog imageDialog=new Dialog(view.getContext(),R.style.edit_AlertDialog_style);
-        imageDialog.setContentView(R.layout.show_big_image);
-        /**
-         * 点击其他区域消失
-         * */
-        imageDialog.setCanceledOnTouchOutside(true);
-        Window w = imageDialog.getWindow();
-        WindowManager.LayoutParams lp = w.getAttributes();
-        lp.x = 0;
-        lp.y = 40;
-        imageDialog.onWindowAttributesChanged(lp);
-        ImageView iv_big_image=imageDialog.findViewById(R.id.iv_big_image);
-        iv_big_image.setBackgroundResource(R.mipmap.test_image);
-        iv_big_image.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        iv_big_image.setOnClickListener((v->
-        {
-            if(imageDialog!=null&& imageDialog.isShowing()){
-                imageDialog.dismiss();
-            }
-        }));
-return imageDialog;
-    }
-
 
     @Override
     public int getItemCount() {

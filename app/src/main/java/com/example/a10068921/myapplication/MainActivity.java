@@ -4,6 +4,8 @@ package com.example.a10068921.myapplication;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Animatable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,7 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.example.a10068921.myapplication.adapter.NormalAdapter;
-import com.example.a10068921.myapplication.openfile.OpenSDFile;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +31,15 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        OpenSDFile openSDFile=new OpenSDFile();
+
         mycheckPermission();
-//        openSDFile.writeFile("Test File Write !!");
-       System.out.println("The Msg is "+openSDFile.read());
+
         RecyclerView recyclerView=findViewById(R.id.recycler_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

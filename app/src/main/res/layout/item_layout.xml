@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:id="@+id/line"
+                  android:layout_height="141dp"
+                  android:layout_alignParentStart="true"
+                  android:layout_alignParentTop="true"
 
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                  android:layout_alignParentLeft="true">
+        <TextView
+                android:id="@+id/time"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/name"
+                android:textSize="18sp"
+                android:background="#CCE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/atv"
+                android:layout_margin="20dp"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-
-    <TextView
-            android:id="@+id/time"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    <TextView
-            android:id="@+id/name"
-            android:textSize="18sp"
-            android:background="#CCE"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    <com.example.a10068921.myapplication.mylayout.AlignedTextView
-        android:id="@+id/atv"
-        android:layout_margin="20dp"
-        app:atv_lineSpacingExtra="5dp"
-        app:atv_marginAndPaddingOfLeftRight="40dp"
-        app:atv_textSize="14sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-</com.example.a10068921.myapplication.mylayout.AlignedTextView>
+    <uk.co.senab.photoview.PhotoView
+            android:id="@+id/item_image2"
+            android:scaleType="centerInside"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+    />
     <ImageView
-            android:id="@+id/item_image"
-            android:layout_margin="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="100dp"
+
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/line"
+            android:id="@+id/item_image"/>
     <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/item_image"
             android:id="@+id/jc_video"
-            android:layout_width="match_parent"
-            android:layout_height="148dp">
+            />
 
-    </fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
-
-
-</LinearLayout>
+</RelativeLayout>
