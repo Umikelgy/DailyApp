@@ -48,15 +48,12 @@ dependencies {
 
     implementation 'com.github.chrisbanes:PhotoView:1.2.6'
 
-    implementation "com.hanks:htextview-base:0.1.0"        // base library
+// https://mvnrepository.com/artifact/com.zzhoujay.richtext/richtext
+    compile group: 'com.zzhoujay.richtext', name: 'richtext', version: '3.0.5'
+    implementation 'com.github.limedroid:XRichText:v1.0.0'
 
-    implementation "com.hanks:htextview-fade:0.1.6"        // optional
-    implementation "com.hanks:htextview-line:0.1.0"        // optional
-    implementation "com.hanks:htextview-rainbow:0.1.2"     // optional
-    implementation "com.hanks:htextview-typer:0.1.1"       // optional
 
-    implementation "com.hanks:htextview-scale:0.1.0"       // optional
-    implementation "com.hanks:htextview-evaporate:0.1.6"   // optional
-    implementation "com.hanks:htextview-fall:0.1.6"        // optional
+
+
 
 }

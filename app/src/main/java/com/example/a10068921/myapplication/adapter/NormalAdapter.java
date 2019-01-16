@@ -13,8 +13,9 @@ import android.widget.Toast;
 import com.example.a10068921.myapplication.R;
 import com.example.a10068921.myapplication.activity.ImageActivity;
 import com.example.a10068921.myapplication.activity.ImageDialog;
-import com.example.a10068921.myapplication.activity.TextActitvity;
+import com.example.a10068921.myapplication.activity.TextActivity;
 import com.example.a10068921.myapplication.mylayout.AlignedTextView;
+import com.example.a10068921.myapplication.mylayout.ShowMoreTextView;
 import com.example.a10068921.myapplication.sqlite.SqliteUtils;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import uk.co.senab.photoview.PhotoView;
@@ -37,7 +38,7 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
         public final TextView title;
         public final TextView time;
         public final ImageView imageView;
-        public final TextView textView;
+        public final ShowMoreTextView textView;
         public final JCVideoPlayerStandard mVideo;
         public VH(View itemView) {
             super(itemView);
@@ -90,12 +91,12 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
             holder.mVideo.setVisibility(View.GONE);
         }
         if(position==5) {
-            TextView textView= holder.textView;
-            textView.setText(R.string.text);
+            ShowMoreTextView textView= holder.textView;
+            textView.setContent("");
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    holder.itemView.getContext().startActivity(new Intent(holder.itemView.getContext(), TextActitvity.class));
+                    holder.itemView.getContext().startActivity(new Intent(holder.itemView.getContext(), TextActivity.class));
                 }
             });
 
