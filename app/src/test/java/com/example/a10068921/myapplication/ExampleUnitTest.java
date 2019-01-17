@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -50,5 +53,40 @@ public class ExampleUnitTest {
                 e.printStackTrace();
             }
         }
+    }
+    @Test
+    public void testWords(){
+        String massage="ajfla,jfalag,j,jsfs~jklff,22,1,~j";
+      int t;
+        Set<Integer> indexs=new TreeSet<>();
+        String allKeys="~·！@#￥%……&*（）—+《》？，。、；：’‘“”【】{}`~!$%^&*()_+-={}[];:''\",./<>?";
+        for(char c:allKeys.toCharArray()){
+                 t=massage.indexOf(c);
+          while(t!=-1&&t!=massage.length()){
+              indexs.add(t);
+             t=massage.indexOf(c,t+1);
+
+          }
+        }
+
+        List<String> list=new ArrayList<>();
+        Set<Integer> startIndexs=indexs;
+        startIndexs.add(-1);
+        indexs.stream().forEach(System.out::println);
+        List<Integer> endIndexs=indexs.stream().sorted().collect(Collectors.toList());
+
+      List<Integer> start=  startIndexs.stream().sorted().collect(Collectors.toList());
+      int i;
+      for( i=0;i<endIndexs.size();i++){
+          list.add(massage.substring(start.get(i)+1,endIndexs.get(i)));
+      }
+      list.add(massage.substring(start.get(i)+1));
+list.stream().forEach(System.out::println);
+    }
+    @Test
+    public void TestIndexOf(){
+      int[] as={12,11,4,1,21,1,2,23};
+
+
     }
 }

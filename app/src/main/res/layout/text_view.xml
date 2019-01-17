@@ -1,23 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+>
+    <LinearLayout
+                android:id="@+id/layoutL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="22dp"
+                android:layout_alignParentLeft="true"
+                android:orientation="horizontal">
+        <ezy.ui.view.NoticeView
+                android:id="@+id/notice"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_round"
+                app:nvIcon="@mipmap/notice"
+                app:nvIconPadding="5dp"
+                app:nvIconTint="@android:color/white"
+                app:nvTextColor="#FFFFFFFF"
+                app:nvTextGravity="left"
+                app:nvTextSize="14sp"
+        />
 
-    <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
-            android:text="@string/text"
-            android:layout_height="100dp"/>
+        <ezy.ui.view.NoticeView
+                android:id="@+id/notice1"
+                app:nvInterval="2000"
+                app:nvTextColor="#FFFFFFFF"
+                app:nvTextGravity="center"
+                android:background="@drawable/bg_round"
+                android:layout_height="30dp"
+                android:layout_width="match_parent"/>
+    </LinearLayout>
+
+
     <cn.droidlover.xrichtext.XRichText
             android:id="@+id/richText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp" />
-    <SeekBar
-            android:id="@+id/seekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"/>
-</LinearLayout>
+            android:padding="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/layoutL"
+            android:layout_alignParentLeft="true"/>
+</RelativeLayout>

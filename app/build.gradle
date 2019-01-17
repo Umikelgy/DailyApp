@@ -49,8 +49,11 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:1.2.6'
 
 // https://mvnrepository.com/artifact/com.zzhoujay.richtext/richtext
-    compile group: 'com.zzhoujay.richtext', name: 'richtext', version: '3.0.5'
+    implementation group: 'com.zzhoujay.richtext', name: 'richtext', version: '3.0.5'
     implementation 'com.github.limedroid:XRichText:v1.0.0'
+    implementation 'com.github.czy1121:noticeview:1.1.0'
+
+
 
 
 
