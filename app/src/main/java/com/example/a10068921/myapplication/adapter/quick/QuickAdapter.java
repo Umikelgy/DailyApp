@@ -50,7 +50,7 @@ public abstract class QuickAdapter<T> extends RecyclerView.Adapter<QuickAdapter.
      */
     public abstract void convert(VH holder, T data, int position);
 
-    static class VH extends RecyclerView.ViewHolder{
+   public static class VH extends RecyclerView.ViewHolder{
         private SparseArray<View> mViews;
         private View mConvertView;
 

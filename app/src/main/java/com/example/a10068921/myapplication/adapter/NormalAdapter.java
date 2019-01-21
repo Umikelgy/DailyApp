@@ -1,8 +1,6 @@
 package com.example.a10068921.myapplication.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
@@ -65,7 +63,7 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
     @Override
     public void onBindViewHolder(VH holder, int position) {
         Context context=holder.itemView.getContext();
-        holder.title.setText(mData.get(position))                                   ;
+        holder.title.setText(mData.get(position));
         holder.title.setOnClickListener((view)->
                 makeText(context,mData.get(position)+position,Toast.LENGTH_LONG).show()
         );
@@ -81,7 +79,8 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
             holder.title.setText(nameMap.toString());
         }
         if(position==4){
-
+            holder.imageView.setVisibility(View.GONE);
+            holder.textView.setVisibility(View.GONE);
             holder.mVideo.setVisibility(View.GONE);
         }
         if(position==5) {
