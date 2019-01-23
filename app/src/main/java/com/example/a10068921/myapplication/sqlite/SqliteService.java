@@ -8,6 +8,8 @@ import java.util.List;
  * @date 2019/1/21 14:53
  **/
 public interface SqliteService {
-    /**SQL：EventDb*/
+    /**
+     * @return ：NormalModel
+     * SQL：EventDb*/
     List<NormalModel> selectNormalAllEvent();
 }

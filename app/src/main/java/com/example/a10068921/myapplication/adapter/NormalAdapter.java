@@ -2,6 +2,7 @@ package com.example.a10068921.myapplication.adapter;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
@@ -46,6 +47,13 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
 
     public NormalAdapter(List<String> mData) {
         this.mData = mData;
+    }
+
+    @Override
+    public void onViewAttachedToWindow(@NonNull VH holder) {
+        mData.add("item"+10);
+        notifyItemInserted(mData.size()-1);
+        super.onViewAttachedToWindow(holder);
     }
 
     /**
