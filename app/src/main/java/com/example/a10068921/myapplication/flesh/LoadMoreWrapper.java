@@ -65,20 +65,17 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             switch (loadState) {
                 // 正在加载
                 case LOADING:
-                    footViewHolder.pbLoading.setVisibility(View.VISIBLE);
-                    footViewHolder.tvLoading.setVisibility(View.VISIBLE);
+                    footViewHolder.loadLL.setVisibility(View.VISIBLE);
                     footViewHolder.llEnd.setVisibility(View.GONE);
                     break;
                     // 加载完成
                 case LOADING_COMPLETE:
-                    footViewHolder.pbLoading.setVisibility(View.INVISIBLE);
-                    footViewHolder.tvLoading.setVisibility(View.INVISIBLE);
+                    footViewHolder.loadLL.setVisibility(View.VISIBLE);
                     footViewHolder.llEnd.setVisibility(View.GONE);
                     break;
                 // 加载到底
                 case LOADING_END:
-                    footViewHolder.pbLoading.setVisibility(View.GONE);
-                    footViewHolder.tvLoading.setVisibility(View.GONE);
+                    footViewHolder.loadLL.setVisibility(View.GONE);
                     footViewHolder.llEnd.setVisibility(View.VISIBLE);
                     break;
 
@@ -116,12 +113,14 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ProgressBar pbLoading;
         TextView tvLoading;
         LinearLayout llEnd;
+        LinearLayout loadLL;
 
         FootViewHolder(View itemView) {
             super(itemView);
             pbLoading = (ProgressBar) itemView.findViewById(R.id.pb_loading);
             tvLoading = (TextView) itemView.findViewById(R.id.tv_loading);
             llEnd = (LinearLayout) itemView.findViewById(R.id.ll_end);
+            loadLL=itemView.findViewById(R.id.dateLoading);
         }
     }
 

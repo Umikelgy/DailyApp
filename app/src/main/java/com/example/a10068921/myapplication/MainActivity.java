@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(()->{
             data.clear();
             initTData();
-            data.add("testkl");
             loadMoreWrapper.notifyDataSetChanged();
 
 //            延迟1秒关闭下拉刷新
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLoadMore() {
              loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
-             if(data.size()<10){
+             if(data.size()<20){
                  new Timer().schedule(new TimerTask() {
                      @Override
                      public void run() {
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<NormalModel> initData() {
         SqliteService sqliteService=new SqliteServiceImpl();
-        return sqliteService.selectNormalAllEvent();
+        return sqliteService.selectNormalAllEvent(this);
     }
 
 

@@ -33,7 +33,10 @@ public class SqliteUtils  {
         databaseHelper=new DatabaseHelper(context,dbName,null,version);
         db=databaseHelper.getWritableDatabase();
     }
-
+/**封装不同数据结构，返回SQLiteDatabase类型数据，重新实现所需数据结构*/
+    public SQLiteDatabase dataType(){
+        return databaseHelper.getReadableDatabase();
+    }
     public void addTable(String sqlTable){
         db.execSQL(sql);
         sql=sqlTable;
