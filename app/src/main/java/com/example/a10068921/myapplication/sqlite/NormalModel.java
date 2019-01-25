@@ -23,7 +23,7 @@ public class NormalModel {
     public static Builder newBuilder(){
         return new Builder();
     }
-  static  class Builder {
+  public static  class Builder {
         private String name;
         private LocalDateTime createTime;
         private String description;
@@ -46,8 +46,8 @@ public class NormalModel {
             return this;
         }
 
-        public void builder(){
-            new NormalModel(this);
+        public NormalModel builder(){
+           return new NormalModel(this);
         }
     }
 

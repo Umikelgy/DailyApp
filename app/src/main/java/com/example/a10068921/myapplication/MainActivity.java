@@ -28,58 +28,58 @@ import java.util.TimerTask;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private static int tableIndex=0;
     private RecyclerView recyclerView;
     private Toolbar toolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LoadMoreWrapper loadMoreWrapper;
-    private List<String> data=new ArrayList<>();
+    private List<NormalModel> data=new ArrayList<>();
    @Override
    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         /**权限赋予*/
-       Permission.permission(this,this);
+        Permission.permission(this,this);
 
-       swipeRefreshLayout=findViewById(R.id.swipe_refresh_layout);
-       recyclerView=findViewById(R.id.recycler_view);
-       toolbar = (Toolbar) findViewById(R.id.toolbar);
+        swipeRefreshLayout=findViewById(R.id.swipe_refresh_layout);
+        recyclerView=findViewById(R.id.recycler_view);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4DB6AC"));
-
-
-       initTData();
-
-       /**RecyclerView 设置*/
-       NormalAdapter normalAdapter= new NormalAdapter(data);
-       loadMoreWrapper =new LoadMoreWrapper(normalAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(loadMoreWrapper);
-
         swipeRefreshLayout.setOnRefreshListener(()->{
-            data.clear();
-            initTData();
-            loadMoreWrapper.notifyDataSetChanged();
+           data.clear();
+           tableIndex=0;
+           initData();
+           loadMoreWrapper.notifyDataSetChanged();
 
 //            延迟1秒关闭下拉刷新
-            swipeRefreshLayout.postDelayed(()->{
-                if(swipeRefreshLayout!=null&&swipeRefreshLayout.isRefreshing()){
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            },1000);
-        });
+           swipeRefreshLayout.postDelayed(()->{
+               if(swipeRefreshLayout!=null&&swipeRefreshLayout.isRefreshing()){
+                   swipeRefreshLayout.setRefreshing(false);
+               }
+           },1000);
+       });
 
-        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
+       initData();
+       /**RecyclerView 设置*/
+       loadMoreWrapper =new LoadMoreWrapper( new NormalAdapter(data));
+       recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       // TODO: 2019/1/25 数据过少，没有一页时出现加载动画bug
+       recyclerView.setAdapter(loadMoreWrapper);
+//       上拉加载更多
+       recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener() {
             @Override
             public void onLoadMore() {
              loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
-             if(data.size()<20){
+             if(initData()>0){
                  new Timer().schedule(new TimerTask() {
                      @Override
                      public void run() {
                          runOnUiThread(()->{
-                             initTData();
+//                             initData();
                              loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
                          });
                      }
@@ -92,17 +92,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private List<NormalModel> initData() {
+    private int initData() {
         SqliteService sqliteService=new SqliteServiceImpl();
-        return sqliteService.selectNormalAllEvent(this);
+        List<NormalModel> tData=sqliteService.selectNormalAllEvent(this,tableIndex);
+        data.addAll(tData);
+        if(tData.size()==10){
+            tableIndex++;
+        }
+        return tData.size();
     }
 
-
-    private void initTData() {
-        for(int i=0;i<10;i++){
-                data.add("item"+i);
-            }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         data.clear();
-        initTData();
+        initData();
         recyclerView.setAdapter(loadMoreWrapper);
         return super.onOptionsItemSelected(item);
     }

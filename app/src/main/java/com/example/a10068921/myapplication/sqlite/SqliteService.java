@@ -13,6 +13,6 @@ public interface SqliteService {
     /**
      * @return ：NormalModel
      * SQL：EventDb*/
-    List<NormalModel> selectNormalAllEvent(Context context);
+    List<NormalModel> selectNormalAllEvent(Context context,int tableIndex);
     List<TestModel> testAllExample(Context context);
 }

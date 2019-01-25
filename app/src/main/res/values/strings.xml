@@ -6,4 +6,26 @@
     <string name="myText">
         hTextView TextView Test!!
     </string>
+<string name="createEventTable">
+    CREATE TABLE IF NOT EXISTS `event_db` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `create_time` datetime NOT NULL,
+    `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    `read_time` datetime DEFAULT NULL,
+    `description` varchar(255) DEFAULT NULL,
+    `event_level` int(10) unsigned zerofill NOT NULL,
+    `read_times` int(11) unsigned zerofill DEFAULT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+</string>
+    <string-array name="insert">
+        <item>INSERT INTO `event_db` VALUES (\'1\', \'test\', \'2019–01–04 11:52:59\', \'2019-01-04 11:52:59\',
+            \'2019-01-04 11:52:59\', \'desciption\', \'0000000004\', \'00000000001\',null);</item>
+
+    </string-array>
+    <string name="insertIn">
+        INSERT INTO `event_db` VALUES (\'1\', \'test\', \'2019–01-04 11:52:59\', \'2019-01-04 11:52:59', '2019-01-04
+        11:52:59', 'desciption', '0000000004', '00000000001',null);
+    </string>
 </resources>

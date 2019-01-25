@@ -23,12 +23,15 @@ public class TestModel {
         return number;
     }
 
-    public TestModel() {
+    public TestModel(Builder builder) {
+        this.id=builder.id;
+        this.name=builder.name;
+        this.number=builder.number;
     }
     public static Builder newBuilder(){
         return new Builder();
     }
-   static class Builder{
+  public static class Builder{
         private Integer id;
         private String name;
         private Integer number;
@@ -44,8 +47,8 @@ public class TestModel {
             this.number=number;
             return this;
         }
-        public void builder(){
-            new TestModel();
+        public TestModel builder(){
+         return    new TestModel(this);
         }
     }
 }

@@ -12,10 +12,13 @@ import android.widget.Toast;
 import com.example.a10068921.myapplication.R;
 import com.example.a10068921.myapplication.activity.ImageDialog;
 import com.example.a10068921.myapplication.activity.TextDialog;
+import com.example.a10068921.myapplication.sqlite.NormalModel;
 import com.example.a10068921.myapplication.sqlite.SqliteUtils;
+import com.example.a10068921.myapplication.sqlite.TestModel;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -43,19 +46,11 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
             imageView=itemView.findViewById(R.id.item_image);
         }
     }
-    private List<String> mData;
+    private List<NormalModel> mData;
 
-    public NormalAdapter(List<String> mData) {
+    public NormalAdapter(List<NormalModel> mData) {
         this.mData = mData;
     }
-
-    @Override
-    public void onViewAttachedToWindow(@NonNull VH holder) {
-        mData.add("item"+10);
-        notifyItemInserted(mData.size()-1);
-        super.onViewAttachedToWindow(holder);
-    }
-
     /**
      *@description
      *在adapter中实现3个方法
@@ -70,49 +65,18 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(VH holder, int position) {
+        NormalModel normalModel=mData.get(position);
         Context context=holder.itemView.getContext();
-        holder.title.setText(mData.get(position));
+        holder.title.setText(normalModel.getName());
         holder.title.setOnClickListener((view)->
-                makeText(context,mData.get(position)+position,Toast.LENGTH_LONG).show()
+                makeText(context,normalModel.getName()+position,Toast.LENGTH_LONG).show()
         );
-        holder.time.setText(mData.get(position)+ LocalDateTime.now().toString());
-        holder.time.setOnClickListener((view)->
-                makeText(context,LocalDateTime.now().toString(),Toast.LENGTH_LONG).show()
-        );
-        if(position==10){
-            String sql="select * from example1";
-            SqliteUtils sqliteUtils=new SqliteUtils(context,sql);
-            Map<String ,Object> nameMap=sqliteUtils.selectTableMassage(null);
-            sqliteUtils.close();
-            holder.title.setText(nameMap.toString());
-        }
-        if(position==4){
-            holder.imageView.setVisibility(View.GONE);
-            holder.textView.setVisibility(View.GONE);
-            holder.mVideo.setVisibility(View.GONE);
-        }
-        if(position==5) {
-            TextView textView= holder.textView;
-            textView.setText(R.string.text);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                  new TextDialog(context,context.getString(R.string.text)).show();
-                }
-            });
+        holder.time.setText(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(normalModel.getCreateTime()));
 
-         ImageView image=holder.imageView;
-         image.setImageResource(R.mipmap.test_image);
-         image.setOnClickListener((v)->
-         {
-             ImageDialog imageDialog=new ImageDialog(context);
-             imageDialog.show();
-         });
-        }
-        holder.itemView.setOnClickListener(view -> {
-            // TODO: 2019/1/4 item 点击事件
-                makeText(context," "+position+"item",Toast.LENGTH_LONG).show();
-        });
+        TextView textView=  holder.textView;
+       textView .setText(normalModel.getDescription());
+        textView.setOnClickListener(view -> new TextDialog(context,normalModel.getDescription()).show());
+        // TODO: 2019/1/25 图片，视频
     }
 
     @Override
