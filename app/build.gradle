@@ -52,6 +52,7 @@ dependencies {
     implementation group: 'com.zzhoujay.richtext', name: 'richtext', version: '3.0.5'
     implementation 'com.github.limedroid:XRichText:v1.0.0'
     implementation 'com.github.czy1121:noticeview:1.1.0'
+    implementation 'com.scalified:fab:1.1.3'
 
 
 

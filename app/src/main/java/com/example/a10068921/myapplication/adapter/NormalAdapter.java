@@ -62,6 +62,7 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
         return new VH(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout,parent,false));
     }
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(VH holder, int position) {
@@ -71,9 +72,9 @@ public class NormalAdapter extends RecyclerView.Adapter <NormalAdapter.VH> {
         holder.title.setOnClickListener((view)->
                 makeText(context,normalModel.getName()+position,Toast.LENGTH_LONG).show()
         );
-        holder.time.setText(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(normalModel.getCreateTime()));
+        holder.time.setText(normalModel.getCreateTime());
 
-        TextView textView=  holder.textView;
+        TextView textView= holder.textView;
        textView .setText(normalModel.getDescription());
         textView.setOnClickListener(view -> new TextDialog(context,normalModel.getDescription()).show());
         // TODO: 2019/1/25 图片，视频

@@ -32,7 +32,7 @@ public class SqliteServiceImpl implements SqliteService {
         while(cursor.moveToNext()){
             result.add(NormalModel.newBuilder()
                     .name(cursor.getString(1))
-                    .createTime(LocalDateTime.parse(cursor.getString(2)))
+                    .createTime(cursor.getString(2))
                     .description(cursor.getString(5))
                     .descriptionPath(cursor.getString(8))
                     .builder()

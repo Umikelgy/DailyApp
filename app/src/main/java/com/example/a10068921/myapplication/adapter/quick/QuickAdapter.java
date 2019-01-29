@@ -36,6 +36,10 @@ public abstract class QuickAdapter<T> extends RecyclerView.Adapter<QuickAdapter.
     public void onBindViewHolder(VH holder, int position) {
         convert(holder, mDatas.get(position), position);
     }
+    public void addNewItem(T t){
+        mDatas.add(0,t);
+        notifyItemInserted(0);
+    }
 
     @Override
     public int getItemCount() {

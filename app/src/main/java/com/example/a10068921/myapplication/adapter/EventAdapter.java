@@ -1,14 +1,16 @@
 package com.example.a10068921.myapplication.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.a10068921.myapplication.R;
+import com.example.a10068921.myapplication.activity.AddEventActivity;
 import com.example.a10068921.myapplication.activity.ImageDialog;
 import com.example.a10068921.myapplication.activity.TextDialog;
 import com.example.a10068921.myapplication.adapter.quick.QuickAdapter;
@@ -16,7 +18,6 @@ import com.example.a10068921.myapplication.sqlite.NormalModel;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -38,7 +39,13 @@ public class EventAdapter extends QuickAdapter<NormalModel> {
 
     @Override
     public int getLayoutId(int viewType) {
-        return data.size();
+        return R.layout.item_layout;
+    }
+
+    @Override
+    public void addNewItem(NormalModel normalModel) {
+        super.addNewItem(normalModel);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -49,21 +56,22 @@ public class EventAdapter extends QuickAdapter<NormalModel> {
        title.setText(data.getName());
 
        TextView time=holder.getView(R.id.time);
-        DateTimeFormatter df=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-       time.setText(df.format(data.getCreateTime()));
+       time.setText(data.getCreateTime());
 
        TextView description=holder.getView(R.id.atv);
        description.setText(data.getDescription());
        description.setOnClickListener(view -> new TextDialog(context,data.getDescription()).show());
 
         ImageView imageView=holder.getView(R.id.item_image);
-        String path=data.getDescriptionPath();
+        String[] paths = data.getDescriptionPath().split("|");
+        String imgPath=paths[0];
+        String videoPath=paths[1];
         Stream.of(FileType.IMAGE)
                 .forEach((imageType)->
                 {
-                    if (path.contains(imageType)) {
+                    if (imgPath!=null&&imgPath.contains(imageType)) {
                         try {
-                            FileInputStream fs=new FileInputStream(path);
+                            FileInputStream fs=new FileInputStream(imgPath);
                             imageView.setVisibility(View.VISIBLE);
                             imageView.setImageBitmap(BitmapFactory.decodeStream(fs));
                         } catch (FileNotFoundException e) {
@@ -77,12 +85,21 @@ public class EventAdapter extends QuickAdapter<NormalModel> {
         Stream.of(FileType.VIDEO)
                 .forEach((videoType)->
                 {
-                    if(path.contains(videoType)){
+                    if(videoPath!=null&&videoPath.contains(videoType)){
                         video.setVisibility(View.VISIBLE);
                         video.setUp(data.getDescriptionPath(), JCVideoPlayer.SCREEN_LAYOUT_NORMAL,data.getName());
                     }
                 });
 
-
+        holder.itemView.setOnClickListener(v->{
+            context.startActivity(new Intent(context, AddEventActivity.class));
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return false;
+            }
+        });
     }
+
 }

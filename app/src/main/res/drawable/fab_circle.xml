@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<shape
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="oval"
+>
+    <solid android:color="@color/fab_material_red_500"/>
+    <size
+            android:height="@dimen/fab_circle_size"
+            android:width="@dimen/fab_circle_size"
+    />
+    <stroke
+            android:color="@color/fab_material_red_900"
+            android:width="@dimen/fab_circle_stroke_width"
+    />
+</shape>

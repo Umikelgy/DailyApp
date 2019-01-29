@@ -2,8 +2,10 @@ package com.example.a10068921.myapplication.common;
 
 
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.RequiresApi;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,5 +41,16 @@ public class Utils {
         }
         result.add(msg.substring(i));
         return result;
+    }
+    /**
+     * 新建sd卡文件路径，用户存储后台数据信息，包括数据库，数据源
+     * */
+    public static void createPath(){
+        if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+            File file=new File(Environment.getExternalStorageDirectory().getPath()+"/Daily/sql");
+            if(!file.exists()){
+                file.mkdirs();
+            }
+        }
     }
  }

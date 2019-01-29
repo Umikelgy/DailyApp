@@ -30,6 +30,8 @@
         </activity>
         <activity android:name=".activity.ImageActivity"/>
         <activity android:name=".activity.TextActivity"/>
+        <activity android:name=".activity.AddEventActivity"/>
+        <activity android:name=".activity.ModifyActivity"/>
     </application>
 
 

@@ -1,7 +1,5 @@
 package com.example.a10068921.myapplication.sqlite;
 
-import java.time.LocalDateTime;
-
 /**
  * @author 10068921(LgyTT)
  * @description:
@@ -9,7 +7,7 @@ import java.time.LocalDateTime;
  **/
 public class NormalModel {
     private String name;
-    private LocalDateTime createTime;
+    private String createTime;
     private String description;
     private String descriptionPath;
 
@@ -25,7 +23,7 @@ public class NormalModel {
     }
   public static  class Builder {
         private String name;
-        private LocalDateTime createTime;
+        private String createTime;
         private String description;
         private String descriptionPath;
 
@@ -33,7 +31,7 @@ public class NormalModel {
             this.name=name;
             return this;
         }
-        public Builder createTime(LocalDateTime createTime){
+        public Builder createTime(String createTime){
             this.createTime=createTime;
             return this;
         }
@@ -55,7 +53,7 @@ public class NormalModel {
         return name;
     }
 
-    public LocalDateTime getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layer-list
+        xmlns:android="http://schemas.android.com/apk/res/android"
+>
+    <item android:drawable="@drawable/fab_circle" />
+    <item
+            android:drawable="@drawable/fab_plus_icon"
+            android:left="@dimen/fab_image_padding"
+            android:right="@dimen/fab_image_padding"
+            android:top="@dimen/fab_image_padding"
+            android:bottom="@dimen/fab_image_padding"
+    />
+
+</layer-list>
