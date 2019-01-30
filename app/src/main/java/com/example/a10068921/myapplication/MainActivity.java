@@ -1,4 +1,5 @@
 package com.example.a10068921.myapplication;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.a10068921.myapplication.activity.AddEventActivity;
 import com.example.a10068921.myapplication.adapter.EventAdapter;
 import com.example.a10068921.myapplication.common.Permission;
 import com.example.a10068921.myapplication.common.Utils;
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
        addEvent.show();
        addEvent.removeShadow();
        addEvent.setOnClickListener(view -> {
-
+        startActivityForResult(new Intent(MainActivity.this, AddEventActivity.class),1);
        });
 
         swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#4DB6AC"));

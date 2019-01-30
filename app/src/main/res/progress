@@ -16,3 +16,13 @@ Sqlite：使用class.driver()，connection方式出现文件系统只读问题�
 GitHub 上受欢迎的Android Ui 库：https://blog.csdn.net/u010898329/article/details/80865414
 gitHub java8例子：https://github.com/java8/Java8InAction
 Java 8：https://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html
+
+
+version-1.0:
+进入界面刷新本地数据（解析本地压缩包），显示recyclerView，应用Android 闹钟机制，使用qq（微信）进行数据同步，添加数据后，
+数据压缩到指定文件内。
+进度说明：
+1.添加数据，添加内容未刷新和上传文件路径问题，界面设计不合理，添加数据线程同步问题。
+2.主界面recyclerView，加载数据在小于一页内容时存在bug（一直显示刷新图样，但，并未刷新），欲添加菜单功能。
+3.数据库设计较为简单，只能符合第一版内容，应多考虑扩展性问题。
+4.闹钟机制和数据同步部分未实现。

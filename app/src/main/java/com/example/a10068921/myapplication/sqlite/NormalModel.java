@@ -8,14 +8,20 @@ package com.example.a10068921.myapplication.sqlite;
 public class NormalModel {
     private String name;
     private String createTime;
+    private String updateTime;
     private String description;
     private String descriptionPath;
 
     public NormalModel(Builder builder) {
         this.name=builder.name;
         this.createTime=builder.createTime;
+        this.updateTime=builder.updateTime;
         this.description=builder.description;
         this.descriptionPath=builder.descriptionPath;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
     }
 
     public static Builder newBuilder(){
@@ -24,6 +30,7 @@ public class NormalModel {
   public static  class Builder {
         private String name;
         private String createTime;
+        private String updateTime;
         private String description;
         private String descriptionPath;
 
@@ -33,6 +40,10 @@ public class NormalModel {
         }
         public Builder createTime(String createTime){
             this.createTime=createTime;
+            return this;
+        }
+        public Builder updateTime(String updateTime){
+            this.updateTime=updateTime;
             return this;
         }
         public Builder description(String description){

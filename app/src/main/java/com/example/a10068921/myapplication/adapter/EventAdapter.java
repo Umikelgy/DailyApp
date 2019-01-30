@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a10068921.myapplication.R;
-import com.example.a10068921.myapplication.activity.AddEventActivity;
 import com.example.a10068921.myapplication.activity.ImageDialog;
+import com.example.a10068921.myapplication.activity.ModifyActivity;
 import com.example.a10068921.myapplication.activity.TextDialog;
 import com.example.a10068921.myapplication.adapter.quick.QuickAdapter;
 import com.example.a10068921.myapplication.sqlite.NormalModel;
@@ -63,36 +63,38 @@ public class EventAdapter extends QuickAdapter<NormalModel> {
        description.setOnClickListener(view -> new TextDialog(context,data.getDescription()).show());
 
         ImageView imageView=holder.getView(R.id.item_image);
-        String[] paths = data.getDescriptionPath().split("|");
-        String imgPath=paths[0];
-        String videoPath=paths[1];
-        Stream.of(FileType.IMAGE)
-                .forEach((imageType)->
-                {
-                    if (imgPath!=null&&imgPath.contains(imageType)) {
-                        try {
-                            FileInputStream fs=new FileInputStream(imgPath);
-                            imageView.setVisibility(View.VISIBLE);
-                            imageView.setImageBitmap(BitmapFactory.decodeStream(fs));
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
+        if(data.getDescriptionPath()!=null) {
+            String[] paths = data.getDescriptionPath().split("|");
+            String imgPath = paths[0];
+            String videoPath = paths[1];
+            Stream.of(FileType.IMAGE)
+                    .forEach((imageType) ->
+                    {
+                        if (imgPath != null && imgPath.contains(imageType)) {
+                            try {
+                                FileInputStream fs = new FileInputStream(imgPath);
+                                imageView.setVisibility(View.VISIBLE);
+                                imageView.setImageBitmap(BitmapFactory.decodeStream(fs));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                });
-        imageView.setOnClickListener((v)->new ImageDialog(context).show());
+                    });
+            imageView.setOnClickListener((v) -> new ImageDialog(context).show());
 
-        JCVideoPlayerStandard video=holder.getView(R.id.jc_video);
-        Stream.of(FileType.VIDEO)
-                .forEach((videoType)->
-                {
-                    if(videoPath!=null&&videoPath.contains(videoType)){
-                        video.setVisibility(View.VISIBLE);
-                        video.setUp(data.getDescriptionPath(), JCVideoPlayer.SCREEN_LAYOUT_NORMAL,data.getName());
-                    }
-                });
+            JCVideoPlayerStandard video = holder.getView(R.id.jc_video);
+            Stream.of(FileType.VIDEO)
+                    .forEach((videoType) ->
+                    {
+                        if (videoPath != null && videoPath.contains(videoType)) {
+                            video.setVisibility(View.VISIBLE);
+                            video.setUp(data.getDescriptionPath(), JCVideoPlayer.SCREEN_LAYOUT_NORMAL, data.getName());
+                        }
+                    });
+        }
 
         holder.itemView.setOnClickListener(v->{
-            context.startActivity(new Intent(context, AddEventActivity.class));
+            context.startActivity(new Intent(context, ModifyActivity.class));
         });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
