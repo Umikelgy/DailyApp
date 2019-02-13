@@ -13,6 +13,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.widget.Toast;
 import com.example.a10068921.myapplication.activity.AddEventActivity;
 import com.example.a10068921.myapplication.adapter.EventAdapter;
 import com.example.a10068921.myapplication.common.Permission;
@@ -89,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
          /**添加滑动删除*/
        ItemTouchHelper helper=new ItemTouchHelper(new MyItemTouchHelperCallback());
        //  数据过少，没有一页时出现加载动画bug
+       if(initData()<10){
+           loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
+       }
        recyclerView.setAdapter(loadMoreWrapper);
 //       上拉加载更多
        recyclerView.addOnScrollListener(new MyEndlessRecyclerOnScrollListener());
@@ -99,9 +103,7 @@ public class MainActivity extends AppCompatActivity {
         SqliteService sqliteService=new SqliteServiceImpl();
         List<NormalModel> tData=sqliteService.selectNormalAllEvent(this,tableIndex);
         data.addAll(tData);
-        if(tData.size()==10){
-            tableIndex++;
-        }
+      tableIndex+=tData.size();
         return tData.size();
     }
 
@@ -115,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         data.clear();
         initData();
         recyclerView.setAdapter(loadMoreWrapper);
@@ -155,21 +156,27 @@ public class MainActivity extends AppCompatActivity {
     class MyEndlessRecyclerOnScrollListener extends EndlessRecyclerOnScrollListener {
         @Override
         public void onLoadMore() {
-            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
             if(initData()>0){
+                loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING);
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        runOnUiThread(()->{
-//                             initData();
-                            loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE);
-                        });
+                        initData();
+                        runOnUiThread(()-> loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_COMPLETE));
                     }
                 }, 1000);
             }else {
 //                 到底加载的提示
                 loadMoreWrapper.setLoadState(loadMoreWrapper.LOADING_END);
             }
+System.out.println("tableIndex: "+tableIndex);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(MainActivity.this,"新事件已添加，需下拉刷新！",Toast.LENGTH_SHORT).show();
+        tableIndex=0;
     }
 }

@@ -64,9 +64,12 @@ public class EventAdapter extends QuickAdapter<NormalModel> {
 
         ImageView imageView=holder.getView(R.id.item_image);
         if(data.getDescriptionPath()!=null) {
-            String[] paths = data.getDescriptionPath().split("|");
-            String imgPath = paths[0];
-            String videoPath = paths[1];
+            System.out.println("dataPath= "+data.getDescriptionPath());
+            int pathIndex= data.getDescriptionPath().indexOf("|");
+            String imgPath = data.getDescriptionPath().substring(0,pathIndex).trim();
+            System.out.println("imgPath= "+imgPath);
+            String videoPath = data.getDescriptionPath().substring(pathIndex+1).trim();
+            System.out.println("videoPath= "+videoPath);
             Stream.of(FileType.IMAGE)
                     .forEach((imageType) ->
                     {

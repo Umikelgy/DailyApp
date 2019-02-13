@@ -9,7 +9,8 @@
             android:id="@+id/dateLoading"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
     <ProgressBar
@@ -63,5 +64,36 @@
                 android:background="#4DB6AC"
                 android:gravity="end" />
 
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/start1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+        <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:alpha="0.5"
+                android:background="#4DB6AC"
+                android:gravity="start" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="上拉继续刷新"
+                android:textColor="#4DB6AC"
+                android:textSize="16sp" />
+
+        <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:alpha="0.5"
+                android:background="#4DB6AC"
+                android:gravity="end" />
     </LinearLayout>
 </LinearLayout>

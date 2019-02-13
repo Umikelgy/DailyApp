@@ -48,6 +48,9 @@ public class SqliteUtils  {
        databaseHelper=new DatabaseHelper(context,null,db.getVersion()+1,sql);
        sql=sqlTable;
     }
+    public void modifyTable(String sql){
+        db.execSQL(sql);
+    }
 
     public Map<String,Object> selectTableMassage(String[] keys){
          db=databaseHelper.getReadableDatabase();

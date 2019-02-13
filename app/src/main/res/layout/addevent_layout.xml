@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="@string/add_event_description"
+            android:hint="@string/add_event_description"
             android:maxLength="100"
             android:ems="10"
             android:layout_alignStart="@+id/add_event_name_edit"

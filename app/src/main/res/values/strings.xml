@@ -14,7 +14,7 @@
     `update_time` TEXT DEFAULT NULL ,
     `read_time` TEXT DEFAULT NULL,
     `description` TEXT DEFAULT NULL,
-    `event_level` INTEGER  NOT NULL,
+    `event_level` INTEGER  NULL,
     `read_times` INTEGER  NULL,
     `description_path` TEXT NULL
     );
@@ -34,6 +34,25 @@
             Event2\', \'0000000002\', null,null);</item>
 
     </string-array>
+    <string name="transaction">BEGIN TRANSACTION;
+        CREATE TEMPORARY TABLE t1_backup1(id,name,create_time,update_time,read_time,description,event_level,read_times,description_path);
+        INSERT INTO t1_backup1 SELECT * FROM event_db;
+        DROP TABLE event_db;
+        CREATE TABLE IF NOT EXISTS `event_db` (
+        `id` INTEGER NOT NULL PRIMARY KEY autoincrement,
+        `name` TEXT NOT NULL,
+        `create_time` TEXT NOT NULL,
+        `update_time` TEXT DEFAULT NULL ,
+        `read_time` TEXT DEFAULT NULL,
+        `description` TEXT DEFAULT NULL,
+        `event_level` INTEGER  NOT NULL default 0,
+        `read_times` INTEGER  NULL,
+        `description_path` TEXT NULL
+        );
+        INSERT INTO event_db SELECT * FROM t1_backup1;
+        DROP TABLE t1_backup1;
+        COMMIT;
+    </string>
     <string name="insertIn">
         INSERT INTO `event_db` VALUES (\'1\', \'test\', \'2019–01-04 11:52:59\', \'2019-01-04 11:52:59', '2019-01-04
         11:52:59', 'desciption', '0000000004', '00000000001',null);

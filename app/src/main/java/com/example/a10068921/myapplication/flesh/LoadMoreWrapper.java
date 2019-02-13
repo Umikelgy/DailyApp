@@ -67,16 +67,19 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 case LOADING:
                     footViewHolder.loadLL.setVisibility(View.VISIBLE);
                     footViewHolder.llEnd.setVisibility(View.GONE);
+                    footViewHolder.llStart.setVisibility(View.GONE);
                     break;
                     // 加载完成
                 case LOADING_COMPLETE:
-                    footViewHolder.loadLL.setVisibility(View.VISIBLE);
+                    footViewHolder.llStart.setVisibility(View.VISIBLE);
+                    footViewHolder.loadLL.setVisibility(View.GONE);
                     footViewHolder.llEnd.setVisibility(View.GONE);
                     break;
                 // 加载到底
                 case LOADING_END:
                     footViewHolder.loadLL.setVisibility(View.GONE);
                     footViewHolder.llEnd.setVisibility(View.VISIBLE);
+                    footViewHolder.llStart.setVisibility(View.GONE);
                     break;
 
                 default:
@@ -114,6 +117,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView tvLoading;
         LinearLayout llEnd;
         LinearLayout loadLL;
+        LinearLayout llStart;
 
         FootViewHolder(View itemView) {
             super(itemView);
@@ -121,6 +125,8 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
             tvLoading = (TextView) itemView.findViewById(R.id.tv_loading);
             llEnd = (LinearLayout) itemView.findViewById(R.id.ll_end);
             loadLL=itemView.findViewById(R.id.dateLoading);
+            llStart=itemView.findViewById(R.id.start1);
+
         }
     }
 
@@ -131,6 +137,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     public void setLoadState(int loadState) {
         this.loadState = loadState;
-        notifyDataSetChanged();
+
+            notifyDataSetChanged();
     }
 }

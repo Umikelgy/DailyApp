@@ -20,9 +20,12 @@ public class AddThread implements Runnable {
 
     @Override
     public void run() {
-        String sql="insert into (name,create_time,update_time,description,description_path)values" +
+        String sql="insert into event_db (name,create_time,update_time,description,description_path)values" +
                 "('"+normalModel.getName()+"','"+normalModel.getCreateTime()+"','"+normalModel.getCreateTime()+"','"+normalModel.getDescription()
                 +"','"+normalModel.getDescriptionPath()+"')";
-       new SqliteUtils(context,sql).inputDB(sql);
+        SqliteUtils sqliteUtils=new SqliteUtils(context,null);
+            sqliteUtils.inputDB(sql);
+
+
     }
 }
